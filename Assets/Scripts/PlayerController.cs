@@ -11,19 +11,25 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-
-        // Ensure Rigidbody2D uses continuous collision detection
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
     }
 
     void Update()
     {
-        // Update sameJumpSpeed with the current vertical velocity
-        float sameJumpSpeed = rb.velocity.y;
-        animator.SetFloat("sameJumpSpeed", sameJumpSpeed);
+        float verticalSpeed = rb.velocity.y;
+        animator.SetFloat("sameJumpSpeed", verticalSpeed);
 
-        // Debugging to see the current vertical speed
-        Debug.Log("PlayerController: sameJumpSpeed: " + sameJumpSpeed);
+        Debug.Log("PlayerController: sameJumpSpeed: " + verticalSpeed);
+    }
+
+    public bool IsGrounded()
+    {
+        return isGrounded;
+    }
+
+    public float GetVerticalSpeed()
+    {
+        return rb.velocity.y;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -33,8 +39,6 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
             animator.SetBool("isGrounded", true);
             animator.SetFloat("sameJumpSpeed", 0f);
-
-            // Debugging collision with Terrain
             Debug.Log("Collision with Terrain: Player is grounded");
         }
     }
@@ -45,14 +49,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
             animator.SetBool("isGrounded", false);
-
-            // Debugging leaving collision with Terrain
             Debug.Log("Leaving collision with Terrain: Player is not grounded");
         }
-    }
-
-    public bool IsGrounded()
-    {
-        return isGrounded;
     }
 }

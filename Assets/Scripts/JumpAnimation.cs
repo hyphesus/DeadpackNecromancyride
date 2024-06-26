@@ -2,29 +2,29 @@ using UnityEngine;
 
 public class JumpAnimation : StateMachineBehaviour
 {
-    private Jump jumpScript;
+    private PlayerController playerController;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (jumpScript == null)
-        {
-            jumpScript = animator.GetComponent<Jump>();
-        }
+        playerController = animator.GetComponent<PlayerController>();
         animator.SetBool("isJumping", true);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (jumpScript != null)
+        if (playerController != null)
         {
-            float sameJumpSpeed = jumpScript.sameJumpSpeed;
-            animator.SetFloat("sameJumpSpeed", sameJumpSpeed);
+            bool isGrounded = playerController.IsGrounded();
+            float verticalSpeed = playerController.GetVerticalSpeed();
 
-            if (sameJumpSpeed <= 1.1f)
+            animator.SetBool("isGrounded", isGrounded);
+            animator.SetFloat("sameJumpSpeed", verticalSpeed);
+
+            if (verticalSpeed <= 1.1f && !isGrounded)
             {
                 animator.SetBool("isJumping", false);
             }
-            if (sameJumpSpeed < 0f)
+            if (verticalSpeed < 0f && !isGrounded)
             {
                 animator.SetBool("falling", true);
             }

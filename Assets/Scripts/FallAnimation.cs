@@ -2,28 +2,34 @@ using UnityEngine;
 
 public class FallAnimation : StateMachineBehaviour
 {
-    private Jump jumpScript;
+    private PlayerController playerController;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (jumpScript == null)
-        {
-            jumpScript = animator.GetComponent<Jump>();
-        }
+        playerController = animator.GetComponent<PlayerController>();
         animator.SetBool("falling", true);
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (jumpScript != null)
+        if (playerController != null)
         {
-            float sameJumpSpeed = jumpScript.sameJumpSpeed;
-            animator.SetFloat("sameJumpSpeed", sameJumpSpeed);
+            bool isGrounded = playerController.IsGrounded();
+            float verticalSpeed = playerController.GetVerticalSpeed();
 
-            if (sameJumpSpeed >= 0f)
+            animator.SetBool("isGrounded", isGrounded);
+            animator.SetFloat("sameJumpSpeed", verticalSpeed);
+
+            if (isGrounded)
             {
                 animator.SetBool("falling", false);
                 animator.SetBool("isGrounded", true);
+            }
+
+            if (verticalSpeed > 1.1f && !isGrounded)
+            {
+                animator.SetBool("isJumping", true);
+                animator.SetBool("falling", false);
             }
         }
     }
