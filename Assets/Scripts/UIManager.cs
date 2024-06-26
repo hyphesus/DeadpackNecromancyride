@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject simulationPanel; // Reference to the simulation panel
     public Transform player; // Reference to the player object
     public CameraFollow cameraFollow; // Reference to the CameraFollow script
+    public GameObject pauseButton; // Reference to the pause button
 
     private bool isSimulationRunning = false;
 
@@ -21,6 +22,18 @@ public class UIManager : MonoBehaviour
         continueButton.SetActive(false);
         canvas.SetActive(true); // Ensure the canvas is active at the start
         simulationPanel.SetActive(false); // Ensure the simulation panel is inactive at the start
+        pauseButton.SetActive(false); // Ensure the pause button is inactive at the start
+
+        // Add listener for the pause button
+        if (pauseButton != null)
+        {
+            pauseButton.GetComponent<Button>().onClick.AddListener(OnPauseButtonClick);
+            Debug.Log("Pause button listener added");
+        }
+        else
+        {
+            Debug.LogError("Pause button is not assigned in the inspector");
+        }
 
         Debug.Log("UIManager Start: Canvas active, SimulationPanel inactive");
     }
@@ -49,6 +62,7 @@ public class UIManager : MonoBehaviour
         isSimulationRunning = true;
         canvas.SetActive(false); // Deactivate the entire canvas
         simulationPanel.SetActive(true); // Activate the simulation panel
+        pauseButton.SetActive(true); // Activate the pause button
         cameraFollow.target = player; // Assign the player as the target for the camera
         // Add any additional logic to start the simulation
         Debug.Log("Simulation started: Canvas inactive, SimulationPanel active, isSimulationRunning set to true");
@@ -59,6 +73,7 @@ public class UIManager : MonoBehaviour
         isSimulationRunning = true;
         canvas.SetActive(false); // Deactivate the entire canvas
         simulationPanel.SetActive(true); // Activate the simulation panel
+        pauseButton.SetActive(true); // Activate the pause button
         cameraFollow.target = player; // Assign the player as the target for the camera
         // Add any additional logic to continue the simulation
         Debug.Log("Simulation continued: Canvas inactive, SimulationPanel active, isSimulationRunning set to true");
@@ -69,6 +84,7 @@ public class UIManager : MonoBehaviour
         isSimulationRunning = false;
         canvas.SetActive(true); // Activate the entire canvas
         simulationPanel.SetActive(false); // Deactivate the simulation panel
+        pauseButton.SetActive(false); // Deactivate the pause button
         playButton.SetActive(false);
         continueButton.SetActive(true);
         // Add any additional logic to pause the simulation
@@ -79,5 +95,15 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Game quit");
         Application.Quit();
+    }
+
+    private void OnPauseButtonClick()
+    {
+        Debug.Log("Pause button clicked");
+        if (isSimulationRunning)
+        {
+            Debug.Log("Pause button clicked, pausing simulation");
+            PauseSimulation();
+        }
     }
 }

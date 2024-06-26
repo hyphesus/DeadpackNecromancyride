@@ -20,13 +20,13 @@ public class Jump : MonoBehaviour
     void Update()
     {
         // Check for input to start jumping
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
         {
             StartJump();
         }
 
         // Check for input release to stop jumping
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0) || Input.GetButtonUp("Jump"))
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Jump"))
         {
             StopJump();
         }
