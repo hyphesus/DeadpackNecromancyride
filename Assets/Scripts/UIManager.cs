@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,7 @@ public class UIManager : MonoBehaviour
     public GameObject pauseButton; // Reference to the pause button
     public GameObject mainMenuCanvas; // Reference to the main menu canvas (canvas?)
     public ConstantMovement playerMovement; // Reference to the ConstantMovement script
+    public LevelManager levelManager; // Reference to the LevelManager script
 
     private bool isSimulationRunning = false;
     private Vector3 initialPlayerPosition;
@@ -126,15 +128,22 @@ public class UIManager : MonoBehaviour
 
     public void ShowDeathMessage()
     {
+        // Delay for 1 second before showing the death message and pausing the simulation
+        Invoke("DisplayDeathMessage", 0.1f);
+    }
+
+    private void DisplayDeathMessage()
+    {
         // Deactivate the main menu canvas
         mainMenuCanvas.SetActive(false);
         deathMessagePanel.SetActive(true); // Activate the death message panel
+        PauseSimulation(); // Pause the simulation
     }
 
     public void RestartSimulation()
     {
         // Ensure the player and simulationPanel are active before resetting
-        if (player != null && simulationPanel != null && playerMovement != null)
+        if (player != null && simulationPanel != null && playerMovement != null && levelManager != null)
         {
             player.gameObject.SetActive(true);
             simulationPanel.SetActive(true);
@@ -148,6 +157,10 @@ public class UIManager : MonoBehaviour
             playerMovement.ResetMoveSpeed();
             Debug.Log("UIManager RestartSimulation: Player moveSpeed reset to initialSpeed");
 
+            // Reset the obstacles
+            levelManager.ResetObstacles();
+            Debug.Log("UIManager RestartSimulation: Obstacles reset");
+
             playerMovement.StartMovement(); // Ensure movement starts
             Debug.Log("UIManager RestartSimulation: Player movement started");
 
@@ -157,7 +170,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Player, SimulationPanel, or PlayerMovement is not assigned in the inspector");
+            Debug.LogError("Player, SimulationPanel, PlayerMovement, or LevelManager is not assigned in the inspector");
         }
     }
 

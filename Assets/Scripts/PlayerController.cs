@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class PlayerController : MonoBehaviour
     private UIManager uiManager; // Reference to the UIManager
 
     private bool isGrounded = false;
+    private float groundedTimer = 0.1f; // Time to wait before setting grounded state
+    private float groundedCounter = 0f;
 
     void Start()
     {
@@ -18,9 +21,22 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Update the grounded counter
+        if (groundedCounter > 0)
+        {
+            groundedCounter -= Time.deltaTime;
+            if (groundedCounter <= 0)
+            {
+                isGrounded = true;
+                animator.SetBool("isGrounded", true);
+            }
+        }
+
+        // Update sameJumpSpeed with the current vertical velocity
         float verticalSpeed = rb.velocity.y;
         animator.SetFloat("sameJumpSpeed", verticalSpeed);
 
+        // Debugging to see the current vertical speed
         Debug.Log("PlayerController: sameJumpSpeed: " + verticalSpeed);
     }
 
@@ -38,6 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Terrain"))
         {
+            groundedCounter = groundedTimer; // Start the grounded counter
             isGrounded = true;
             animator.SetBool("isGrounded", true);
             animator.SetFloat("sameJumpSpeed", 0f);
@@ -47,8 +64,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Collision with Dangerous object");
             animator.SetTrigger("DieTrigger");
-            uiManager.PauseSimulation();
-            uiManager.ShowDeathMessage();
+            StartCoroutine(HandleDeath());
         }
     }
 
@@ -60,5 +76,12 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isGrounded", false);
             Debug.Log("Leaving collision with Terrain: Player is not grounded");
         }
+    }
+
+    private IEnumerator HandleDeath()
+    {
+        yield return new WaitForSeconds(2f); // Wait for 1 second before showing the death message
+        uiManager.PauseSimulation();
+        uiManager.ShowDeathMessage();
     }
 }
