@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody2D rb;
+    private UIManager uiManager; // Reference to the UIManager
 
     private bool isGrounded = false;
 
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        uiManager = FindObjectOfType<UIManager>(); // Find the UIManager in the scene
     }
 
     void Update()
@@ -40,6 +42,13 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isGrounded", true);
             animator.SetFloat("sameJumpSpeed", 0f);
             Debug.Log("Collision with Terrain: Player is grounded");
+        }
+        else if (collision.gameObject.CompareTag("Dangerous"))
+        {
+            Debug.Log("Collision with Dangerous object");
+            animator.SetTrigger("DieTrigger");
+            uiManager.PauseSimulation();
+            uiManager.ShowDeathMessage();
         }
     }
 

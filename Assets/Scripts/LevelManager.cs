@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     public float minXDistance = 10f; // Minimum X distance to generate a new level
     public float yMinBoundary = -5f; // Minimum Y boundary value
     public float yMaxBoundary = 5f; // Maximum Y boundary value
+    public Transform levelParent; // Parent object for all levels to keep the hierarchy clean
 
     private List<GameObject> activeLevels = new List<GameObject>();
     private float nextLevelXPosition = 0f;
@@ -35,6 +36,12 @@ public class LevelManager : MonoBehaviour
 
         // Instantiate the selected level prefab
         GameObject newLevel = Instantiate(levelPrefab, new Vector3(nextLevelXPosition, 0, 0), Quaternion.identity);
+
+        // Parent the new level to the level parent object
+        if (levelParent != null)
+        {
+            newLevel.transform.parent = levelParent;
+        }
 
         // Add the new level to the list of active levels
         activeLevels.Add(newLevel);

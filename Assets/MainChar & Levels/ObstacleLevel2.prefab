@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8397890208285567664}
   m_Layer: 0
   m_Name: ObstacleSquare (1)
-  m_TagString: Untagged
+  m_TagString: Dangerous
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 3571749645128496722}
   m_Layer: 0
   m_Name: ObstacleSquare (2)
-  m_TagString: Untagged
+  m_TagString: Dangerous
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 6176184678919901234}
   m_Layer: 0
   m_Name: ObstacleSquare
-  m_TagString: Untagged
+  m_TagString: Dangerous
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
