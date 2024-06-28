@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c2fa69c311e8ddd40805d213dfb292f8
+guid: 862a51da390209a4faea1934a3c2c8d2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -106,11 +106,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jump_0
+      name: Fall_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f49c7bb6d004cc45a3cf1daaf079f4a
-      internalID: 1124959474
+      spriteID: 0dcbefb993f32ff419d47cba200dcc31
+      internalID: 1935594166
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_1
+      name: Fall_1
       rect:
         serializedVersion: 2
         x: 140
@@ -145,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b599ccaff22d44469c900afa5d6e9c1
-      internalID: 389888454
+      spriteID: 2f4ceffe9affc794d89374003888c7f1
+      internalID: 1337788289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_2
+      name: Fall_2
       rect:
         serializedVersion: 2
         x: 280
@@ -166,8 +179,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc34daf7c62a46844899f31d3e22dd8b
-      internalID: 1146671751
+      spriteID: 7b7becf063d4b484ea13315e662862e6
+      internalID: 496750445
       vertices: []
       indices: 
       edges: []
@@ -183,9 +196,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Jump_0: 1124959474
-      Jump_1: 389888454
-      Jump_2: 1146671751
+      Fall_0: 1935594166
+      Fall_1: 1337788289
+      Fall_2: 496750445
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
