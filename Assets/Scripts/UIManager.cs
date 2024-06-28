@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public GameObject mainMenuCanvas; // Reference to the main menu canvas (canvas?)
     public ConstantMovement playerMovement; // Reference to the ConstantMovement script
     public LevelManager levelManager; // Reference to the LevelManager script
+    public MusicManager musicManager; // Reference to the MusicManager script
 
     private bool isSimulationRunning = false;
     private Vector3 initialPlayerPosition;
@@ -128,15 +129,19 @@ public class UIManager : MonoBehaviour
 
     public void ShowDeathMessage()
     {
-        // Delay for 1 second before showing the death message and pausing the simulation
-        Invoke("DisplayDeathMessage", 0.1f);
+        StartCoroutine(ShowDeathMessageWithDelay(0.1f)); // Show death message after 1 second
     }
 
-    private void DisplayDeathMessage()
+    private IEnumerator ShowDeathMessageWithDelay(float delay)
     {
-        // Deactivate the main menu canvas
-        mainMenuCanvas.SetActive(false);
+        yield return new WaitForSeconds(delay);
+
+        // Show the death message
         deathMessagePanel.SetActive(true); // Activate the death message panel
+
+        // Play the menu music
+        musicManager.PlayMenuMusic();
+
         PauseSimulation(); // Pause the simulation
     }
 
