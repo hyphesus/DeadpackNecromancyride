@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8397890208285567664}
   m_Layer: 0
   m_Name: ObstacleSquare (1)
-  m_TagString: Untagged
+  m_TagString: Dangerous
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -600134632, guid: 5f62b97f5313f4f49b5fd36e0d5e55db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 6176184678919901234}
   m_Layer: 0
   m_Name: ObstacleSquare
-  m_TagString: Untagged
+  m_TagString: Dangerous
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -533,7 +533,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -600134632, guid: 5f62b97f5313f4f49b5fd36e0d5e55db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

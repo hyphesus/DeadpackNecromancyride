@@ -7,6 +7,9 @@ public class Jump : MonoBehaviour
     public float maxJumpSpeed = 10f; // Maximum speed of the jump
     public float sameJumpSpeed = 0f; // Public float to track the jump speed
 
+    public AudioClip jumpSound; // Assign this in the Inspector
+    private AudioSource audioSource;
+
     private bool isJumping = false;
     private float currentJumpSpeed;
     private float timeSinceJumpStart;
@@ -15,18 +18,32 @@ public class Jump : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+        {
+            // If the AudioSource component is not attached to the player, add it
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     void Update()
     {
         // Check for input to start jumping
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump") || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump") || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
             StartJump();
+
+            // Play jump sound
+            if (jumpSound != null)
+            {
+                audioSource.volume = 0.1f;
+                audioSource.PlayOneShot(jumpSound);
+            }
         }
 
         // Check for input release to stop jumping
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Jump") || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+        if ((Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Jump") || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended))
         {
             StopJump();
         }
